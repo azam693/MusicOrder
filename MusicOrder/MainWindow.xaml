@@ -1,0 +1,139 @@
+﻿<Window x:Class="MusicOrder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:MusicOrder"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="350" Width="350" MinWidth="350" MaxWidth="600">
+    <xctk:BusyIndicator IsBusy="{Binding ShowLoader}" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>
+            <Menu Grid.Row="0" Height="20">
+                <MenuItem Header="File">
+                    <MenuItem 
+                        Name="MenuItem_Load" 
+                        Header="Load" 
+                        Command="{Binding MenuLoadClick}">
+                    </MenuItem>
+                    <MenuItem 
+                        Name="MenuItem_SaveTo" 
+                        Header="Save to" 
+                        Command="{Binding MenuSaveToClick}">
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Settings">
+                    <MenuItem 
+                        Name="MenuItem_OrderName" 
+                        Header="Add order before name" 
+                        IsCheckable="True"
+                        IsChecked="{Binding AddOrderBeforeNameChecked, Mode=TwoWay}">
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Name="Button_Play" 
+                        Background="White"
+                        HorizontalAlignment="Left" 
+                        Height="38" 
+                        Width="40"
+                        Margin="10,5,0,5" 
+                        Command="{Binding PlayClick}">
+                    <StackPanel>
+                        <iconPacks:PackIconBoxIcons Height="15" Kind="RegularPlayCircle" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock>Play</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Name="Button_Stop" 
+                        Background="White"
+                        HorizontalAlignment="Left" 
+                        Height="38" 
+                        Width="40"
+                        Margin="8,5,0,5" 
+                        Command="{Binding StopClick}">
+                    <StackPanel>
+                        <iconPacks:PackIconBoxIcons Height="15" Kind="RegularStopCircle" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock>Stop</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator Name="Separator_Control" Width="Auto" Background="#6c6960" Margin="10" >
+                    <Separator.LayoutTransform>
+                        <RotateTransform Angle="90" />
+                    </Separator.LayoutTransform>
+                </Separator>
+                <Button Name="Button_Shuffle" 
+                        Background="White"
+                        HorizontalAlignment="Left" 
+                        Height="38" 
+                        Margin="0,5,0,5" 
+                        Command="{Binding ShuffleClick}">
+                    <StackPanel>
+                        <iconPacks:PackIconBoxIcons Height="15" Kind="RegularShuffle" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock>Shuffle</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Name="Button_Remove" 
+                        Background="White"
+                        HorizontalAlignment="Left" 
+                        Height="38" 
+                        Margin="8,5,0,5" 
+                        Command="{Binding RemoveClick}">
+                    <StackPanel>
+                        <iconPacks:PackIconBoxIcons Height="15" Kind="SolidTrashAlt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock>Remove</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Name="Button_RemoveAll" 
+                        Background="White"
+                        HorizontalAlignment="Left" 
+                        Height="38" 
+                        Margin="8,5,0,5" 
+                        Command="{Binding RemoveAllClick}">
+                    <StackPanel>
+                        <iconPacks:PackIconBoxIcons Height="15" Kind="RegularTrashAlt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock>Remove all</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Label Content="Directory:" Margin="8,0" HorizontalAlignment="Left" Width="60"/>
+                <Label Name="Label_CurrentPath" Content="{Binding CurrentPath}"/>
+            </StackPanel>
+            <ListBox 
+                Name="ListBox_FileNames" 
+                Grid.Row="3"
+                ItemsSource="{Binding FileViewCollection}"
+                SelectedItem="{Binding FileViewItem}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock 
+                            Text="{Binding Name}" 
+                            Foreground="Black" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            FontSize="14">
+                            <TextBlock.InputBindings>
+                                <MouseBinding 
+                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.FileViewItemDoubleClick}" 
+                                    Gesture="LeftDoubleClick" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Separator HorizontalAlignment="Left" Margin="390,54,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        </Grid>
+    </xctk:BusyIndicator>
+</Window>
