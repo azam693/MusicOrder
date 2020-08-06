@@ -1,4 +1,7 @@
-**MusicOrder** can help when you try to make playback order. Just load your playlist then shuffle with a button or drag-drop items. After that, you need to save the result in a flashcard or some directory. The program will save music in your order with number prefixes and after that will change file tags. <br/>
+**MusicOrder** helps you to sort your music files in custom playback order by adding numeric prefixes to the file names and by filling file tags.
+Just load your files to the program, then specify the playlist by drag-dropping or shuffle your files to make random playlist. 
+Then save the result into the destination folder. 
+Sorted playlist can be used for smartphones, players and other devices. <br/>
 **Link for latest version: <a href="https://github.com/azam693/MusicOrder/blob/master/Version-0.1.0.7z">Version-0.1.0</a>**
 <br/>
 **For use this program you need to install [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)**
